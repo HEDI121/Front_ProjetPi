@@ -26,7 +26,7 @@ export class AuthInterceptorService implements HttpInterceptor {
         // Handle specific errors
         if (error.status === 401) {
           // Redirect to login page or show an error message
-          this.router.navigate(['/login']);
+          this.router.navigate(['/examples/login']);
         }
         return throwError(error);
       })
