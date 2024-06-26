@@ -17,12 +17,20 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ComponentsModule } from "./components/components.module";
 
 import { AppRoutingModule } from './app-routing.module';
+import { EmailVerificationComponent } from './email-verification/email-verification.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component'; 
+
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminLayoutComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
+    EmailVerificationComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -37,7 +45,9 @@ import { AppRoutingModule } from './app-routing.module';
     TagInputModule,
     PresentationModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -6,8 +6,15 @@ import { BrowserModule } from "@angular/platform-browser";
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { AuthLayoutComponent } from "./layouts/auth-layout/auth-layout.component";
 import { PresentationComponent } from "./pages/presentation/presentation.component";
+import { EmailVerificationComponent } from "./email-verification/email-verification.component";
+import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
+import { ResetPasswordComponent } from "./reset-password/reset-password.component";
 
 const routes: Routes = [
+  { path: 'verify', component: EmailVerificationComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
+  
   {
     path: "",
     redirectTo: "presentation",

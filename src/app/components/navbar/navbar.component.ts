@@ -48,6 +48,24 @@ export class NavbarComponent implements OnInit {
    });
 
   }
+  logout(){
+    /*this.auth.logout().subscribe((data:any)=>{
+      console.log(data);
+      if (data.success) {
+        localStorage.clear();
+        // router => signin
+
+        this.router.navigate(['/signin'])
+
+      }
+      
+    })*/
+
+    localStorage.clear();
+        // router => signin
+
+        this.router.navigate(['/examples/login'])
+  }
 
   ngOnInit() {
     this.listTitles = ROUTES.filter(listTitle => listTitle);
