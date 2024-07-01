@@ -9,11 +9,13 @@ import { PresentationComponent } from "./pages/presentation/presentation.compone
 import { EmailVerificationComponent } from "./email-verification/email-verification.component";
 import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
 import { ResetPasswordComponent } from "./reset-password/reset-password.component";
+import { DashboardAdminComponent } from "./dashboard-admin/dashboard-admin.component";
 
 const routes: Routes = [
   { path: 'verify', component: EmailVerificationComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
+  {path: 'admin_dash', component: DashboardAdminComponent},
   
   {
     path: "",

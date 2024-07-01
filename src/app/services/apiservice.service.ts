@@ -32,4 +32,38 @@ export class ApiserviceService {
   resetPassword(token: string, password: string): Observable<any> {
     return this.http.post(`http://localhost:9000/ProjetPi/password/reset-password?`+"token="+token, { password });
   }
+  isAuthenticated(): boolean {
+    // Vérifie si l'utilisateur est authentifié
+    return !!localStorage.getItem('token');
+  }
+
+  getUserRole(): string | null {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return user && user.roles && user.roles.length > 0 ? user.roles[0] : null;
+  }
+  countAllUsers(): Observable<number> {
+    return this.http.get<number>(`http://localhost:9000/ProjetPi/stat/countAll`);
+  }
+
+  countUsersByRole(role: string): Observable<number> {
+    return this.http.get<number>(`http://localhost:9000/ProjetPi/stat/count/${role}`);
+  }
+
+  getAllUsers(): Observable<any[]> {
+    return this.http.get<any[]>(`http://localhost:9000/ProjetPi/stat/users`);
+  }
+
+  exportUsers(): Observable<Blob> {
+    return this.http.get(`http://localhost:9000/ProjetPi/stat/export-users`, { responseType: 'blob' });
+  }
+
+  updateUser(user: any): Observable<any> {
+    return this.http.post(`http://localhost:9000/ProjetPi/stat/update`, user);
+  }
+ 
+  deleteUser(userId: number): Observable<any> {
+    return this.http.delete(`http://localhost:9000/ProjetPi/stat/delete/${userId}`);
+  }
+
+  
 }

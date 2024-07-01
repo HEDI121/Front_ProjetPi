@@ -1,43 +1,52 @@
-import { Component, OnInit } from "@angular/core";
-import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
-import { LoginRequest } from "src/app/model/loginRequest";
-import { ApiserviceService } from "src/app/services/apiservice.service";
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ApiserviceService } from 'src/app/services/apiservice.service';
+
 
 @Component({
-  selector: "app-login",
-  templateUrl: "login.component.html"
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  
 })
-export class LoginComponent  {
+export class LoginComponent {
   focus;
   focus1;
   signinForm = new FormGroup({
-    username : new FormControl('',Validators.required),
-    password : new FormControl('',Validators.required),
+    username: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
   });
   message = '';
   errorMessage = '';
-  
 
-  constructor(private authService: ApiserviceService, private router: Router) { }
+  constructor(private authService: ApiserviceService, private router: Router) {}
 
   signinNow() {
     const username = this.signinForm.value.username;
     const password = this.signinForm.value.password;
-    this.authService.login(username,password).subscribe(
-      data => {
+    this.authService.login(username, password).subscribe(
+      (data: any) => {
         this.message = 'Login successful!';
         this.errorMessage = '';
-        
+
         // Store the JWT token and other user details in local storage or a service
         localStorage.setItem('user', JSON.stringify(data));
-        localStorage.setItem('token', JSON.stringify(data['accessToken']));
-        this.router.navigate(['/dashboards/dashboard']); // Redirect to a protected route
+        localStorage.setItem('token', data.accessToken);
+
+        const roles = data.roles; // This is an array of roles
+        if (roles.includes('ROLE_ADMIN')) {
+          this.router.navigate(['/admin_dash']);
+        } else if (roles.includes('ROLE_DOCTOR')) {
+          this.router.navigate(['/dashboard/home/doctor']);
+        } else if (roles.includes('ROLE_PATIENT')) {
+          this.router.navigate(['/dashboards/dashboard']);
+        } else {
+          this.router.navigate(['/signin']);
+        }
       },
       err => {
         this.errorMessage = err.error.message || 'Login failed. Please try again.';
         this.message = '';
-        
       }
     );
   }
