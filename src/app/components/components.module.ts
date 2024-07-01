@@ -17,6 +17,7 @@ import { CollapseModule } from "ngx-bootstrap/collapse";
 import { DxVectorMapModule, DxPieChartModule } from 'devextreme-angular';
 import { BsDropdownModule } from "ngx-bootstrap/dropdown";
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -32,6 +33,7 @@ import { BsDropdownModule } from "ngx-bootstrap/dropdown";
     VectorMapComponent1,
     NavbarComponent,
     SidebarComponent
+    
   ],
   exports: [
     FooterComponent,

@@ -1,7 +1,7 @@
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 import { BsDropdownModule } from "ngx-bootstrap/dropdown";
 import { ToastrModule } from "ngx-toastr";
@@ -20,7 +20,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { EmailVerificationComponent } from './email-verification/email-verification.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component'; 
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component'; 
+import { SidebarAdminComponent } from "./sidebar-admin/sidebar-admin.component";
+import { AuthInterceptorService } from "./services/jwt-interceptor.service";
 
 
 @NgModule({
@@ -30,7 +33,9 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     AuthLayoutComponent,
     EmailVerificationComponent,
     ForgotPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    DashboardAdminComponent,
+    SidebarAdminComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -46,10 +51,17 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     PresentationModule,
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    
     
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
