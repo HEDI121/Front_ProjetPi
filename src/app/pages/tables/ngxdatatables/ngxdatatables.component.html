@@ -3,7 +3,7 @@
     <div class=" header-body">
       <div class=" row align-items-center py-4">
         <div class=" col-lg-6 col-7">
-          <h6 class=" h2 text-white d-inline-block mb-0">Ngx Datatables</h6>
+          <h6 class=" h2 text-white d-inline-block mb-0"> Mes dossiers Médicaux</h6>
 
           <nav
             aria-label="breadcrumb"
@@ -15,11 +15,11 @@
               </li>
 
               <li class=" breadcrumb-item">
-                <a href="javascript:void(0)"> Tables </a>
+                <a href="javascript:void(0)"> Mes dossiers </a>
               </li>
 
               <li aria-current="page" class=" breadcrumb-item active">
-                Ngx Datatables
+                Mes dossiers Médicaux
               </li>
             </ol>
           </nav>
@@ -38,15 +38,14 @@
 </div>
 
 <div class=" container-fluid mt--6">
-  <div class=" row">
+  <div class="row">
     <div class=" col">
       <div class=" card">
         <div class=" card-header">
-          <h3 class=" mb-0">Ngx Datatables</h3>
+          <h3 class=" mb-0">Mes dossiers Médicaux</h3>
 
           <p class=" text-sm mb-0">
-            This is an exmaple of datatable using the well known ngx-datatable
-            plugin. This is a minimal setup in order to get started fast.
+           Vous trouvez ici vous dossiers médicaux
           </p>
         </div>
         <div class="dataTables_wrapper py-4">
@@ -92,22 +91,21 @@
             [footerHeight]="50"
             [rowHeight]="'auto'"
             [limit]="entries != -1 ? entries : undefined"
-            [rows]="temp"
+            [rows]="listdossiers"
             (activate)="onActivate($event)"
           >
-            <ngx-datatable-column name="Name"></ngx-datatable-column>
-            <ngx-datatable-column name="Position"></ngx-datatable-column>
-            <ngx-datatable-column name="Office"></ngx-datatable-column>
-            <ngx-datatable-column name="Age"></ngx-datatable-column>
-            <ngx-datatable-column name="Start"></ngx-datatable-column>
-            <ngx-datatable-column name="Salary"></ngx-datatable-column>
+            <ngx-datatable-column name="rapport"></ngx-datatable-column>
+            <ngx-datatable-column name="description"></ngx-datatable-column>
+            <ngx-datatable-column name="dateCreation"></ngx-datatable-column>
+            <ngx-datatable-column name="PdfFilePath"></ngx-datatable-column>
+           
           </ngx-datatable>
         </div>
       </div>
       <div class="card">
         <!-- Card header -->
         <div class="card-header">
-          <h3 class="mb-0">Selecting Rows</h3>
+          <!--h3 class="mb-0">Selecting Rows</h3>
           <p class="text-sm mb-0">
             This is an exmaple of datatable using the well known ngx-datatable
             plugin. This is a minimal setup in order to get started fast.
@@ -173,5 +171,5 @@
         </div>
       </div>
     </div>
-  </div>
+  </div-->
 </div>
