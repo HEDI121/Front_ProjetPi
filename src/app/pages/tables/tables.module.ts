@@ -13,9 +13,10 @@ import { SortableComponent } from "./sortable/sortable.component";
 
 import { RouterModule } from "@angular/router";
 import { TablesRoutes } from "./tables.routing";
+import { PopupComponent } from "./popup/popup.component";
 
 @NgModule({
-  declarations: [NgxDatatablesComponent, SortableComponent, TablesComponent],
+  declarations: [NgxDatatablesComponent, SortableComponent, PopupComponent, TablesComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(TablesRoutes),
@@ -25,6 +26,9 @@ import { TablesRoutes } from "./tables.routing";
     PaginationModule.forRoot(),
     TooltipModule.forRoot(),
     NgxPrintModule
+  ],
+  exports:[
+    PopupComponent
   ]
 })
 export class TablesModule {}

@@ -26,6 +26,7 @@ import { SidebarAdminComponent } from "./sidebar-admin/sidebar-admin.component";
 import { AuthInterceptorService } from "./services/jwt-interceptor.service";
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,6 +53,7 @@ import { AuthInterceptorService } from "./services/jwt-interceptor.service";
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    FormsModule
     
     
   ],

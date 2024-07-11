@@ -1,0 +1,25 @@
+<div class="popup" *ngIf="isVisible">
+    <div class="popup-content">
+      <span class="close-btn" (click)="closePopup()">&times;</span>
+      <h2>Form Popup</h2>
+      <form (submit)="onSubmit()">
+        <div class=" form-group row">
+          <label  class=" col-md-2 col-form-label form-control-label" for="rapport">Rapport</label>
+          <input type="text" id="name" [(ngModel)]="formData.name" name="rapport" required   class=" form-control">
+        </div>
+       
+
+        
+        <div>
+          <label for="description">Description:</label>
+          <textarea id="description" [(ngModel)]="formData.description" name="description" required></textarea>
+        </div>
+        <div>
+          <label for="pdf">Upload PDF:</label>
+          <input type="file" id="pdf" (change)="onFileSelected($event)" accept=".pdf" required>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+  

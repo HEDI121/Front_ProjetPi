@@ -3,6 +3,7 @@ import { Routes } from "@angular/router";
 import { NgxDatatablesComponent } from "./ngxdatatables/ngxdatatables.component";
 import { SortableComponent } from "./sortable/sortable.component";
 import { TablesComponent } from "./tables/tables.component";
+import { PopupComponent } from "./popup/popup.component";
 
 export const TablesRoutes: Routes = [
   {
@@ -29,6 +30,15 @@ export const TablesRoutes: Routes = [
       {
         path: "tables",
         component: TablesComponent
+      }
+    ]
+  },
+  {
+    path: "",
+    children: [
+      {
+        path: "popup",
+        component: PopupComponent
       }
     ]
   }

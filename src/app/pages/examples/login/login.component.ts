@@ -38,7 +38,7 @@ export class LoginComponent {
           this.router.navigate(['/admin_dash']);
         } else if (roles.includes('ROLE_DOCTOR')) {
           this.router.navigate(['/dashboard/home/doctor']);
-        } else if (roles.includes('ROLE_PATIENT')) {
+        } else if (roles.includes('Patient')) {
           this.router.navigate(['/dashboards/dashboard']);
         } else {
           this.router.navigate(['/signin']);
