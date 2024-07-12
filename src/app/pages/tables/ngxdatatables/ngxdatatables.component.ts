@@ -27,13 +27,13 @@ export class NgxDatatablesComponent implements OnInit {
   ngAfterViewInit() {
     // Ensures ViewChild is initialized
   }
+  showFilters: boolean = false;
 
+  toggleFilters() {
+    this.showFilters = !this.showFilters;
+  }
   openPopup() {
-    if (this.popup) {
-      this.popup.openPopup();
-    } else {
-      console.error('PopupComponent is not initialized.');
-    }
+    this.popup.openPopup();
   }
   constructor(private ts: TablesServiceService){
     /*this.temp = this.listdossiers.map((prop, key) => {
@@ -82,6 +82,50 @@ export class NgxDatatablesComponent implements OnInit {
     }
   )
 };
+
+
+searchByRapport(event: any): void {
+  const rapport = event.target.value;
+  if (rapport) {
+    this.ts.searchByRapport(rapport).subscribe((data) => {
+      this.listdossiers = data;
+    });
+  } else {
+    this.loadDossiers(); // Load all dossiers if search field is empty
+  }
+  
+}
+
+searchByDate(event: any): void {
+  const dateCreation = event.target.value;
+  if (dateCreation) {
+    this.ts.searchByDate(dateCreation).subscribe((data) => {
+      this.listdossiers = data;
+    });
+  } else {
+    this.loadDossiers(); // Load all dossiers if search field is empty
+  }
+  
+}
+searchByKeyword(event: any): void {
+  const keyword = event.target.value;
+  if (keyword) {
+    this.ts.searchByKeyword(keyword).subscribe((data) => {
+      this.listdossiers = data;
+    });
+  } else {
+    this.loadDossiers(); // Load all dossiers if search field is empty
+  }
+}
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,25 +1,48 @@
 <div class="popup" *ngIf="isVisible">
-    <div class="popup-content">
-      <span class="close-btn" (click)="closePopup()">&times;</span>
-      <h2>Form Popup</h2>
-      <form (submit)="onSubmit()">
-        <div class=" form-group row">
-          <label  class=" col-md-2 col-form-label form-control-label" for="rapport">Rapport</label>
-          <input type="text" id="name" [(ngModel)]="formData.name" name="rapport" required   class=" form-control">
+  <div class="popup-content" style="padding: 20px; border-radius: 8px; background-color: #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+    <span class="close-btn" (click)="closePopup()" style="font-size: 24px; cursor: pointer;">&times;</span>
+    <h2 style="text-align: center; margin-bottom: 20px;">Ajouter un dossier médical</h2>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group row" style="margin-bottom: 15px;">
+        <label class="col-md-2 col-form-label form-control-label" for="patientName">Nom du patient</label>
+        <div class="col-md-10">
+          <input type="text" id="patientName" [(ngModel)]="patientName" name="patientName" required class="form-control">
         </div>
-       
+      </div>
+      <div class="form-group row" style="margin-bottom: 15px;">
+        <label class="col-md-2 col-form-label form-control-label" for="rapport">Rapport</label>
+        <div class="col-md-10">
+          <input type="text" id="rapport" [(ngModel)]="formData.rapport" name="rapport" required class="form-control">
+        </div>
+      </div>
 
-        
-        <div>
-          <label for="description">Description:</label>
-          <textarea id="description" [(ngModel)]="formData.description" name="description" required></textarea>
+      <div class="form-group row" style="margin-bottom: 15px;">
+        <label class="col-md-2 col-form-label form-control-label" for="description">Description</label>
+        <div class="col-md-10">
+          <textarea class="form-control" id="description" rows="3" [(ngModel)]="formData.description" name="description" required></textarea>
         </div>
-        <div>
-          <label for="pdf">Upload PDF:</label>
-          <input type="file" id="pdf" (change)="onFileSelected($event)" accept=".pdf" required>
+      </div>
+
+      <div class="form-group row" style="margin-bottom: 15px;">
+        <label class="col-md-2 col-form-label form-control-label" for="dateCreation">Date de création</label>
+        <div class="col-md-10">
+            <input class="form-control" id="dateCreation" type="date" 
+                   [ngModel]="formData.dateCreation | date:'yyyy-MM-dd'" 
+                   (ngModelChange)="formData.dateCreation = $event"
+                   name="dateCreation">
         </div>
-        <button type="submit">Submit</button>
-      </form>
     </div>
+
+      <div class="form-group row" style="margin-bottom: 20px;">
+        <label class="col-md-2 col-form-label form-control-label" for="pdf">Upload PDF</label>
+        <div class="col-md-10">
+          <input type="file" id="pdf" class="form-control-file" (change)="onFileSelected($event)" accept=".pdf" required>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary" style="background-color: #f5365c; border: none; padding: 10px 20px; border-radius: 5px;"> {{ isEditMode ? 'Modifier' : 'Ajouter' }}</button>
+      </div>
+    </form>
   </div>
-  
+</div>

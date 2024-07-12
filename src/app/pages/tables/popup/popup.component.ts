@@ -1,40 +1,65 @@
 import { Component } from '@angular/core';
-
+import { HttpClient } from '@angular/common/http';
+import { DossierMedical } from 'src/app/modelsdossier/dossierMedical';
+import { TablesServiceService } from 'src/app/servicedossier/TablesService.service';
 @Component({
   selector: 'app-popup',
   templateUrl: './popup.component.html',
   //styleUrls: ['./popup.component.css']
 })
 export class PopupComponent {
-  isVisible = false;
-  formData = {
-    name: '',
-    description: ''
-  };
-  selectedFile: File | null = null;
-
   openPopup() {
-    this.isVisible = true;
+    this.isVisible=true;
+    
   }
-
-  closePopup() {
-    this.isVisible = false;
-  }
-
+  isVisible = false;
+  formData : DossierMedical =  {
+    rapport: '',
+    description: '',
+    dateCreation: new Date(),
+    pdfFilePath: null ,
+    dm_id: undefined,
+    users: []
+  };
+  name: string;
+  
+  selectedFile: File | null = null;
+  constructor(private ts : TablesServiceService) {}
   onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
+    if (event.target.files.length > 0) {
+      this.formData.pdfFilePath = event.target.files[0];
+    }
   }
 
   onSubmit() {
-    if (this.formData.name && this.formData.description && this.selectedFile) {
-      console.log('Form Data:', this.formData);
-      console.log('Selected File:', this.selectedFile);
+    console.log('Submitting dossier with formData:', this.formData);
+    console.log('Patient Name:', this.name);
+    
+    this.ts.getPatientIdByName(this.name).subscribe(
+      patientId => {
+        console.log('Retrieved Patient ID:', patientId);
+        
+        this.ts.postDossier(patientId, this.formData).subscribe(
+          response => {
+            console.log('Dossier added successfully', response);
+            this.closePopup();
+          },
+          error => {
+            console.error('Error adding dossier', error);
+          }
+        );
+      },
+      error => {
+        console.error('Error fetching patient ID', error);
+      }
+    );
+  }
+  
 
-      // Perform further processing here (e.g., send data to a server)
-      
-      this.closePopup();
-    } else {
-      alert('Please fill all the fields and upload a PDF file.');
-    }
+ closePopup() {
+    this.isVisible = false; // Close the popup
   }
 }
+
+ 
+ 

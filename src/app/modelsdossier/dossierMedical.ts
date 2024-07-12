@@ -4,6 +4,6 @@ export class DossierMedical {
     rapport!: string;
     description !: string;
     dateCreation !: Date;
-    pdfFilePath !: string;
+    pdfFilePath : File | null ;
     users : User [];
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient , HttpErrorResponse} from '@angular/common/http';
+import { HttpClient , HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {  DossierMedical} from '../modelsdossier/dossierMedical';
 import { catchError } from 'rxjs';
 import {Observable , throwError } from 'rxjs';
@@ -19,12 +19,30 @@ export class TablesServiceService {
     );
   }
   deleteDossiers(dm_id: number){
-    return this.http.delete<DossierMedical[]>('${urlBase}/delete/${id}').pipe(
+    return this.http.delete<DossierMedical[]>('${urlBase}/delete/${dm_id}').pipe(
       catchError(this.handleError)
     );
 
   }
+  getPatientIdByName(name: string): Observable<number> {
+    return this.http.get<number>(`${this.urlBase}/id/${name}`).pipe(
+      catchError(this.handleError)
+    );
+  }
+  postDossier(patientId: number, dossier: DossierMedical) {
+    const formData = new FormData();
+    formData.append('rapport', dossier.rapport);
+    formData.append('description', dossier.description);
+    formData.append('dateCreation', dossier.dateCreation.toISOString());
+    if (dossier.pdfFilePath) {
+      formData.append('pdf',dossier.pdfFilePath);
+    }
 
+    return this.http.post<DossierMedical>(`${this.urlBase}/add/${patientId}`, formData).pipe(
+      catchError(this.handleError)
+    );
+  }
+  
   getDossierForAuthenticatedUser(): Observable<DossierMedical> {
     const userId = this.api.getAuthenticatedUserId(); // Fetch authenticated user's ID
     const url ='${this.urlBase}/patient/${userId}';
@@ -51,5 +69,23 @@ export class TablesServiceService {
  /* addUser(U: Post){
     this.http.post('http://localhost:3000/post' , p);
   }*/
+
+
+
+
+    searchByRapport(rapport: string): Observable<DossierMedical[]> {
+      let params = new HttpParams().set('rapport', rapport);
+      return this.http.get<DossierMedical[]>(`${this.urlBase}/searchByrapport`, { params });
+    }
+
+    searchByDate(dateCreation: string): Observable<DossierMedical[]> {
+      let params = new HttpParams().set('dateCreation', dateCreation);
+      return this.http.get<DossierMedical[]>(`${this.urlBase}/searchBydate`, { params });
+    }
+
+    searchByKeyword(keyword: string): Observable<DossierMedical[]> {
+    let params = new HttpParams().set('keyword', keyword);
+    return this.http.get<DossierMedical[]>(`${this.urlBase}/search`, { params });
+  }
 }
 
