@@ -24,9 +24,13 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component'; 
 import { SidebarAdminComponent } from "./sidebar-admin/sidebar-admin.component";
 import { AuthInterceptorService } from "./services/jwt-interceptor.service";
+
 import { AddUserComponent } from './add-user/add-user.component';
 import { UpdateUserComponent } from './update-user/update-user.component';
 import { UploadProfileImageComponent } from './upload-profile-image-component/upload-profile-image-component.component';
+
+import { TablesServiceService } from "./servicedossier/TablesService.service";
+
 
 
 @NgModule({
@@ -58,6 +62,7 @@ import { UploadProfileImageComponent } from './upload-profile-image-component/up
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    FormsModule
     
     
   ],
@@ -66,7 +71,8 @@ import { UploadProfileImageComponent } from './upload-profile-image-component/up
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
       multi: true
-    }
+    },
+    TablesServiceService
   ],
   bootstrap: [AppComponent]
 })

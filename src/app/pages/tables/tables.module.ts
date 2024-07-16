@@ -13,9 +13,14 @@ import { SortableComponent } from "./sortable/sortable.component";
 
 import { RouterModule } from "@angular/router";
 import { TablesRoutes } from "./tables.routing";
+import { PopupComponent } from "./popup/popup.component";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { TablesServiceService } from "src/app/servicedossier/TablesService.service";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
-  declarations: [NgxDatatablesComponent, SortableComponent, TablesComponent],
+  providers:[TablesServiceService],
+  declarations: [NgxDatatablesComponent, SortableComponent, PopupComponent, TablesComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(TablesRoutes),
@@ -24,7 +29,13 @@ import { TablesRoutes } from "./tables.routing";
     BsDropdownModule.forRoot(),
     PaginationModule.forRoot(),
     TooltipModule.forRoot(),
-    NgxPrintModule
+    NgxPrintModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    FormsModule
+  ],
+  exports:[
+    PopupComponent
   ]
 })
 export class TablesModule {}

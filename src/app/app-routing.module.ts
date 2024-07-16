@@ -13,6 +13,7 @@ import { DashboardAdminComponent } from "./dashboard-admin/dashboard-admin.compo
 import { AddUserComponent } from "./add-user/add-user.component";
 import { UpdateUserComponent } from "./update-user/update-user.component";
 import { UploadProfileImageComponent } from "./upload-profile-image-component/upload-profile-image-component.component";
+import { PopupComponent } from "./pages/tables/popup/popup.component";
 
 
 const routes: Routes = [
@@ -31,65 +32,65 @@ const routes: Routes = [
     pathMatch: "full"
   },
   {
-    path: "presentation",
+    path: 'presentation',
     component: PresentationComponent
   },
   {
-    path: "",
+    path: '',
     component: AdminLayoutComponent,
     children: [
       {
-        path: "dashboards",
+        path: 'dashboards',
         loadChildren: () => import('./pages/dashboards/dashboards.module').then(m => m.DashboardsModule)
 
       },
       {
-        path: "components",
+        path: 'components',
         loadChildren: () => import('./pages/components/components.module').then(m => m.ComponentsModule)
       },
       {
-        path: "forms",
+        path: 'forms',
         loadChildren: () => import('./pages/forms/forms.module').then(m => m.FormsModules)
       },
       {
-        path: "tables",
+        path: 'tables',
         loadChildren: () => import('./pages/tables/tables.module').then(m => m.TablesModule)
       },
       {
-        path: "maps",
+        path: 'maps',
         loadChildren: () => import('./pages/maps/maps.module').then(m => m.MapsModule)
       },
       {
-        path: "widgets",
+        path: 'widgets',
         loadChildren: () => import('./pages/widgets/widgets.module').then(m => m.WidgetsModule)
       },
       {
-        path: "charts",
+        path: 'charts',
         loadChildren: () => import('./pages/charts/charts.module').then(m => m.ChartsModule)
       },
       {
-        path: "calendar",
+        path: 'calendar',
         loadChildren: () => import('./pages/calendar/calendar.module').then(m => m.CalendarModule)
       },
       {
-        path: "examples",
+        path: 'examples',
         loadChildren: () => import('./pages/examples/examples.module').then(m => m.ExamplesModule)
       }
     ]
   },
   {
-    path: "",
+    path: '',
     component: AuthLayoutComponent,
     children: [
       {
-        path: "examples",
+        path: 'examples',
         loadChildren: () => import('./layouts/auth-layout/auth-layout.module').then(m => m.AuthLayoutModule)
       }
     ]
   },
   {
-    path: "**",
-    redirectTo: "dashboard"
+    path:'**',
+    redirectTo: 'dashboard'
   }
 ];
 

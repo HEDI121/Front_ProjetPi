@@ -1,25 +1,37 @@
-import { Component, OnInit } from "@angular/core";
-import List from "list.js";
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MailService } from "src/app/servicedossier/mailservice.service";
+
 
 @Component({
-  selector: "app-sortable",
-  templateUrl: "sortable.component.html"
+  selector: 'app-mail',
+  templateUrl: "sortable.component.html",
+  //styleUrls: ['./mail.component.css']
 })
 export class SortableComponent implements OnInit {
-  constructor() {}
 
-  ngOnInit() {
-    new List(document.getElementById("first-list"), {
-      valueNames: ["name", "budget", "status", "completion"],
-      listClass: "list"
-    });
-    new List(document.getElementById("second-list"), {
-      valueNames: ["name", "budget", "status", "completion"],
-      listClass: "list"
-    });
-    new List(document.getElementById("third-list"), {
-      valueNames: ["name", "budget", "status", "completion"],
-      listClass: "list"
-    });
+  emailRequest = {
+    to: '',
+    subject: '',
+    body: ''
+  };
+
+  constructor(private emailService: MailService) { }
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
   }
+
+  onSubmit() {
+    this.emailService.sendEmail(this.emailRequest).subscribe(
+      response => {
+        console.log('Email sent successfully:', response);
+        // Réinitialisez les champs ou affichez un message de confirmation
+      },
+      error => {
+        console.error('Failed to send email:', error);
+        // Affichez un message d'erreur à l'utilisateur
+      }
+    );
+  }
+
 }
