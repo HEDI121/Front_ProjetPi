@@ -89,6 +89,14 @@ export class ApiserviceService {
       const user = JSON.parse(localStorage.getItem('authenticatedUser') || '{}');
       return user.id || '';
     }
+    getToken(): string | null {
+      return localStorage.getItem('token');
+    }
+  
+    // Fonction pour définir le token d'authentification dans le stockage local
+    setToken(token: string): void {
+      localStorage.setItem('token', token);
+    }
   }
 
 

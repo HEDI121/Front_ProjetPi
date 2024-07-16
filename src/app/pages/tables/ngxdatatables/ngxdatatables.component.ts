@@ -1,172 +1,125 @@
-import { Component, OnInit } from "@angular/core";
-import { DossierMedical } from "src/app/modelsdossier/dossierMedical";
-import { TablesServiceService } from "src/app/servicedossier/TablesService.service";
-import {  ViewChild } from '@angular/core';
-import { PopupComponent } from "src/app/pages/tables/popup/popup.component"; 
-export enum SelectionType {
-  single = "single",
-  multi = "multi",
-  multiClick = "multiClick",
-  cell = "cell",
-  checkbox = "checkbox"
-}
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { DossierMedical } from 'src/app/modelsdossier/dossierMedical';
+import { TablesServiceService } from 'src/app/servicedossier/TablesService.service';
+import { PopupComponent } from 'src/app/pages/tables/popup/popup.component';
+
 @Component({
-  selector: "app-ngxdatatables",
-  templateUrl: "ngxdatatables.component.html"
+  selector: 'app-ngxdatatables',
+  templateUrl: 'ngxdatatables.component.html',
 })
-export class NgxDatatablesComponent implements OnInit {
+export class NgxDatatablesComponent implements OnInit, AfterViewInit {
   entries: number = 10;
   selected: any[] = [];
-  temp : DossierMedical[] =[] ;;
+  temp: DossierMedical[] = [];
   activeRow: any;
-  listdossiers: DossierMedical[] = [
-  ];
+  listdossiers: DossierMedical[] = [];
 
   @ViewChild(PopupComponent) popup: PopupComponent;
 
-  ngAfterViewInit() {
-    // Ensures ViewChild is initialized
-  }
   showFilters: boolean = false;
 
-  toggleFilters() {
-    this.showFilters = !this.showFilters;
-  }
-  openPopup() {
-    this.popup.openPopup();
-  }
-  constructor(private ts: TablesServiceService){
-    /*this.temp = this.listdossiers.map((prop, key) => {
-    return {
-      ...prop,
-      id: key};
-    });*/
-  }
+  constructor(private ts: TablesServiceService) {}
 
   ngOnInit(): void {
     this.loadDossiers();
   }
 
+  ngAfterViewInit() {
+    // Ensures ViewChild is initialized
+  }
+
+  toggleFilters() {
+    this.showFilters = !this.showFilters;
+  }
+
+  openPopup() {
+    this.popup.openPopup();
+    setTimeout(() => {
+      const popupElement = document.getElementById('popupElement');
+      if (popupElement) {
+        popupElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  }
+
   loadDossiers(): void {
     this.ts.getDossiers().subscribe(
       (data: DossierMedical[]) => {
-        console.log('Données chargées:', data);  // Ajoutez ce journal pour débogage
+        console.log('Données chargées:', data);
         this.listdossiers = data;
         this.temp = [...this.listdossiers];
       },
       error => {
-        console.error("Erreur lors du chargement des dossiers:", error);
+        console.error('Erreur lors du chargement des dossiers:', error);
       }
     );
   }
- 
- /* ngOnInit (){
-    this.ts.getDossiers().subscribe(
-    (data : DossierMedical[])=>{this.listdossiers=data ;
-      this.temp =[...this.listdossiers];},
-      error => {
-        console.error("erreur lors du chargement des dossiers:" , error)
-      }
 
-  );
-};*/
   deleteDossier(dm_id: number): void {
-  this.ts.deleteDossiers(dm_id).subscribe(
-    (response) => {
-      console.log('Dossier supprimé avec succès', response);
-      // Vous pouvez ajouter ici toute logique pour mettre à jour l'interface utilisateur après la suppression
-    },
-    (error) => {
-      console.error('Erreur lors de la suppression du dossier', error);
-      // Vous pouvez ajouter ici toute logique pour gérer les erreurs, par exemple afficher un message à l'utilisateur
+    this.ts.deleteDossiers(dm_id).subscribe(
+      response => {
+        console.log('Dossier supprimé avec succès', response);
+        // Refresh the list after deletion
+        this.loadDossiers();
+      },
+      error => {
+        console.error('Erreur lors de la suppression du dossier', error);
+      }
+    );
+  }
+
+  searchByRapport(event: any): void {
+    const rapport = event.target.value;
+    if (rapport) {
+      this.ts.searchByRapport(rapport).subscribe(data => {
+        this.listdossiers = data;
+      });
+    } else {
+      this.loadDossiers();
     }
-  )
-};
-
-
-searchByRapport(event: any): void {
-  const rapport = event.target.value;
-  if (rapport) {
-    this.ts.searchByRapport(rapport).subscribe((data) => {
-      this.listdossiers = data;
-    });
-  } else {
-    this.loadDossiers(); // Load all dossiers if search field is empty
   }
-  
-}
 
-searchByDate(event: any): void {
-  const dateCreation = event.target.value;
-  if (dateCreation) {
-    this.ts.searchByDate(dateCreation).subscribe((data) => {
-      this.listdossiers = data;
-    });
-  } else {
-    this.loadDossiers(); // Load all dossiers if search field is empty
+  searchByDate(event: any): void {
+    const dateCreation = event.target.value;
+    if (dateCreation) {
+      this.ts.searchByDate(dateCreation).subscribe(data => {
+        this.listdossiers = data;
+      });
+    } else {
+      this.loadDossiers();
+    }
   }
-  
-}
-searchByKeyword(event: any): void {
-  const keyword = event.target.value;
-  if (keyword) {
-    this.ts.searchByKeyword(keyword).subscribe((data) => {
-      this.listdossiers = data;
-    });
-  } else {
-    this.loadDossiers(); // Load all dossiers if search field is empty
+
+  searchByKeyword(event: any): void {
+    const keyword = event.target.value;
+    if (keyword) {
+      this.ts.searchByKeyword(keyword).subscribe(data => {
+        this.listdossiers = data;
+      });
+    } else {
+      this.loadDossiers();
+    }
   }
-}
 
+  filterTable($event) {
+    let val = $event.target.value.toLowerCase();
+    this.temp = this.listdossiers.filter(d => {
+      return Object.values(d).some(value =>
+        typeof value === 'string' && value.toLowerCase().includes(val)
+      );
+    });
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-
-  SelectionType = SelectionType;
-
- 
   entriesChange($event) {
     this.entries = $event.target.value;
   }
-/* filterTable($event) {
-    let val = $event.target.value;
-    this.temp = this.listdossiers.filter(function(d) {
-      for (var key in d) {
-        if (d[key].toLowerCase().indexOf(val) !== -1) {
-          return true;
-        }
-      }
-      return false;
-    });
-  }*/
-    filterTable($event) {
-      let val = $event.target.value.toLowerCase();
-      this.temp = this.listdossiers.filter(d => {
-        return Object.values(d).some(value =>
-          typeof value === "string" && value.toLowerCase().includes(val)
-        );
-      });
-    }
 
   onSelect({ selected }) {
     this.selected.splice(0, this.selected.length);
     this.selected.push(...selected);
   }
+
   onActivate(event) {
     this.activeRow = event.row;
   }
-
 }
-function deleteDossier(id: any, number: any) {
-  throw new Error("Function not implemented.");
-}
-

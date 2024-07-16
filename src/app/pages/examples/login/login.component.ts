@@ -36,8 +36,8 @@ export class LoginComponent {
         const roles = data.roles; // This is an array of roles
         if (roles.includes('ROLE_ADMIN')) {
           this.router.navigate(['/admin_dash']);
-        } else if (roles.includes('ROLE_DOCTOR')) {
-          this.router.navigate(['/dashboard/home/doctor']);
+        } else if (roles.includes('Medecin')) {
+          this.router.navigate(['/dashboards/dashboard']);
         } else if (roles.includes('Patient')) {
           this.router.navigate(['/dashboards/dashboard']);
         } else {

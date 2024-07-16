@@ -23,7 +23,11 @@ export class TablesComponent implements OnInit {
   ];
 
   @ViewChild(PopupComponent) popup: PopupComponent;
+  showFilters: boolean = false;
 
+  toggleFilters() {
+    this.showFilters = !this.showFilters;
+  }
   ngAfterViewInit() {
     // Ensures ViewChild is initialized
   }
@@ -43,20 +47,23 @@ export class TablesComponent implements OnInit {
   }
 
 
- 
-  ngOnInit (){
-   
-    this.ts.getDossierForAuthenticatedUser().subscribe(
-    (data : DossierMedical)=>{this.listdossiers=[data] ;
-      this.temp =[...this.listdossiers];},
+  ngOnInit() {
+    // Appel initial pour charger les dossiers par userID
+    this.loadDossiersByUserId();
+  }
+  userId: number = 1;
+  loadDossiersByUserId() {
+
+    this.ts.getDossiersByUserId(this.userId).subscribe(
+      dossiers => {
+        this.listdossiers = dossiers;
+        console.log('Dossiers chargés:', this.listdossiers);
+      },
       error => {
-        console.error("erreur lors du chargement des dossiers:" , error)
+        console.error('Erreur lors du chargement des dossiers', error);
       }
-
-  )
-  };
-
-
+    );
+  }
 
 
 

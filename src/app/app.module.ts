@@ -24,6 +24,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component'; 
 import { SidebarAdminComponent } from "./sidebar-admin/sidebar-admin.component";
 import { AuthInterceptorService } from "./services/jwt-interceptor.service";
+import { TablesServiceService } from "./servicedossier/TablesService.service";
 
 
 
@@ -62,7 +63,8 @@ import { AuthInterceptorService } from "./services/jwt-interceptor.service";
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
       multi: true
-    }
+    },
+    TablesServiceService
   ],
   bootstrap: [AppComponent]
 })
