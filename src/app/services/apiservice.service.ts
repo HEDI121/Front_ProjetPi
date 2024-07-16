@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SignupRequest } from '../model/SignupRequest ';
 import { Observable } from 'rxjs';
+import { User } from '../model/User';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -57,12 +58,33 @@ export class ApiserviceService {
     return this.http.get(`http://localhost:9000/ProjetPi/stat/export-users`, { responseType: 'blob' });
   }
 
-  updateUser(user: any): Observable<any> {
-    return this.http.post(`http://localhost:9000/ProjetPi/stat/update`, user);
-  }
+  
  
   deleteUser(userId: number): Observable<any> {
     return this.http.delete(`http://localhost:9000/ProjetPi/stat/delete/${userId}`);
+  }
+  addUser(user: any): Observable<any> {
+    return this.http.post(`http://localhost:9000/ProjetPi/stat/add`, user);
+  }
+  getUserById(id: number): Observable<User> {
+    return this.http.get<User>(`http://localhost:9000/ProjetPi/stat/find/${id}`);
+  }
+
+  updateUser( user: User): Observable<any> {
+    return this.http.post(`http://localhost:9000/ProjetPi/stat/update`, user);
+  }
+  uploadProfileImage(id: number, file: any): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+
+    let user = {}
+    user['image']= file
+
+    return this.http.post(`http://localhost:9000/ProjetPi/stat/uploadProfileImage/${id}`, user);
+  }
+
+  getProfileImage(id: number): Observable<any> {
+    return this.http.get(`http://localhost:9000/ProjetPi/stat/profileImage/${id}`, { responseType: 'json' });
   }
 
   

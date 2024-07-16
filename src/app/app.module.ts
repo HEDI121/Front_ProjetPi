@@ -24,6 +24,9 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { DashboardAdminComponent } from './dashboard-admin/dashboard-admin.component'; 
 import { SidebarAdminComponent } from "./sidebar-admin/sidebar-admin.component";
 import { AuthInterceptorService } from "./services/jwt-interceptor.service";
+import { AddUserComponent } from './add-user/add-user.component';
+import { UpdateUserComponent } from './update-user/update-user.component';
+import { UploadProfileImageComponent } from './upload-profile-image-component/upload-profile-image-component.component';
 
 
 @NgModule({
@@ -35,7 +38,10 @@ import { AuthInterceptorService } from "./services/jwt-interceptor.service";
     ForgotPasswordComponent,
     ResetPasswordComponent,
     DashboardAdminComponent,
-    SidebarAdminComponent
+    SidebarAdminComponent,
+    AddUserComponent,
+    UpdateUserComponent,
+    UploadProfileImageComponent,
   ],
   imports: [
     BrowserAnimationsModule,

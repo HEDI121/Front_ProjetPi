@@ -50,13 +50,17 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let user of users">
+            <tr *ngFor="let user of users ">
               <td>{{ user.username }}</td>
               <td>{{ user.email }}</td>
-              <td>{{ user.roles | json }}</td>
               <td>
-                <button class="btn btn-secondary" (click)="updateUser(user)">Update</button>
-                <button class="btn btn-danger" (click)="deleteUser(user.id)">Delete</button>
+                <span *ngFor="let role of user.roles; let last = last">
+                  {{ role.personnel }}<span *ngIf="!last">, </span>
+                </span>
+              </td>
+              <td>
+                <button class="btn btn-secondary" [routerLink]="['/update-user', user.userId]">Update</button>
+                                <button class="btn btn-danger" (click)="deleteUser(user.userId)">Delete</button>
               </td>
             </tr>
           </tbody>
