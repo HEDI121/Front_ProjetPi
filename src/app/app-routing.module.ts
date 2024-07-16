@@ -10,20 +10,26 @@ import { EmailVerificationComponent } from "./email-verification/email-verificat
 import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
 import { ResetPasswordComponent } from "./reset-password/reset-password.component";
 import { DashboardAdminComponent } from "./dashboard-admin/dashboard-admin.component";
+import { AddUserComponent } from "./add-user/add-user.component";
+import { UpdateUserComponent } from "./update-user/update-user.component";
+import { UploadProfileImageComponent } from "./upload-profile-image-component/upload-profile-image-component.component";
 import { PopupComponent } from "./pages/tables/popup/popup.component";
+
 
 const routes: Routes = [
   { path: 'verify', component: EmailVerificationComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
   {path: 'admin_dash', component: DashboardAdminComponent},
- 
+  { path: 'add-user', component: AddUserComponent },
+  { path: 'update-user/:id', component: UpdateUserComponent },
+  { path: 'upload-profile-image', component: UploadProfileImageComponent },
 
   
   {
-    path: '',
-    redirectTo: 'presentation',
-    pathMatch: 'full'
+    path: "",
+    redirectTo: "/examples/login",
+    pathMatch: "full"
   },
   {
     path: 'presentation',

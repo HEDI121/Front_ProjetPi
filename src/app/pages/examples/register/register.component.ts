@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { SignupRequest } from "src/app/model/SignupRequest ";
 import { ApiserviceService } from "src/app/services/apiservice.service";
@@ -7,7 +7,7 @@ import { ApiserviceService } from "src/app/services/apiservice.service";
   selector: "app-register",
   templateUrl: "register.component.html"
 })
-export class RegisterComponent  {
+export class RegisterComponent {
   focus;
   focus1;
   focus2;
@@ -27,7 +27,8 @@ export class RegisterComponent  {
       data => {
         this.message = 'User registered successfully! Check your email for verification.';
         this.errorMessage = '';
-         // Redirect to login page on success
+        // Redirect to login page on success
+        this.router.navigate(['/login']);
       },
       err => {
         this.errorMessage = err.error.message || 'An error occurred during registration.';

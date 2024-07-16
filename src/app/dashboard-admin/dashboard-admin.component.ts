@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { ApiserviceService } from '../services/apiservice.service';
+import { Router } from '@angular/router';
+import { _ } from 'ajv';
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -13,7 +15,7 @@ export class DashboardAdminComponent {
   totalAdmins: number;
   users: any[];
 
-  constructor(private userService: ApiserviceService) {}
+  constructor(private userService: ApiserviceService, private router: Router) {}
 
   ngOnInit() {
     this.getTotalUsers();
@@ -49,9 +51,11 @@ export class DashboardAdminComponent {
 
   getUsers() {
     this.userService.getAllUsers().subscribe((users: any[]) => {
+      console.log('Fetched users:', users); // Ajoutez cette ligne pour vérifier les utilisateurs reçus
       this.users = users;
     });
   }
+  
 
   exportUsers() {
     this.userService.exportUsers().subscribe((data: Blob) => {
@@ -63,14 +67,21 @@ export class DashboardAdminComponent {
     });
   }
 
-  updateUser(user: any) {
-    // Logic for updating user
+  updateUser(user) {
+    this.router.navigate(['/update-user', user.id]);
   }
 
+
+
   deleteUser(userId: number) {
-    this.userService.deleteUser(userId).subscribe(() => {
-      this.getUsers(); // Refresh the user list after deletion
-    });
+    this.userService.deleteUser(userId).subscribe(res=>{
+        // Actualisez la liste des utilisateurs après la suppression réussie
+        console.log('User deleted successfully.');
+      }
+    );
+    this.users=  this.users.filter(user=>user.userId != userId)
+       this.users = JSON.parse(JSON.stringify(this.users));
+    
   }
 
 }

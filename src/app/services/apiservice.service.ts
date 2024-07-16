@@ -1,7 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SignupRequest } from '../model/SignupRequest ';
+
+
+import { User } from '../model/User';
+
 import { Observable, tap } from 'rxjs';
+
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -73,17 +78,37 @@ export class ApiserviceService {
     return this.http.get(`http://localhost:9000/ProjetPi/stat/export-users`, { responseType: 'blob' });
   }
 
-  updateUser(user: any): Observable<any> {
-    return this.http.post(`http://localhost:9000/ProjetPi/stat/update`, user);
-  }
+  
  
   deleteUser(userId: number): Observable<any> {
     return this.http.delete(`http://localhost:9000/ProjetPi/stat/delete/${userId}`);
   }
-  /*getAuthenticatedUserId(): number {
-    const userData = JSON.parse(localStorage.getItem('userData'));
-    return userData ? userData.id : null;
-  }*/
+  addUser(user: any): Observable<any> {
+    return this.http.post(`http://localhost:9000/ProjetPi/stat/add`, user);
+  }
+  getUserById(id: number): Observable<User> {
+    return this.http.get<User>(`http://localhost:9000/ProjetPi/stat/find/${id}`);
+  }
+
+  updateUser( user: User): Observable<any> {
+    return this.http.post(`http://localhost:9000/ProjetPi/stat/update`, user);
+  }
+  uploadProfileImage(id: number, file: any): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('file', file);
+
+    let user = {}
+    user['image']= file
+
+    return this.http.post(`http://localhost:9000/ProjetPi/stat/uploadProfileImage/${id}`, user);
+  }
+
+  getProfileImage(id: number): Observable<any> {
+    return this.http.get(`http://localhost:9000/ProjetPi/stat/profileImage/${id}`, { responseType: 'json' });
+  }
+
+
+
     getAuthenticatedUserId(): string {
     
       const user = JSON.parse(localStorage.getItem('authenticatedUser') || '{}');
@@ -92,6 +117,7 @@ export class ApiserviceService {
     getToken(): string | null {
       return localStorage.getItem('token');
     }
+
   
     // Fonction pour définir le token d'authentification dans le stockage local
     setToken(token: string): void {
