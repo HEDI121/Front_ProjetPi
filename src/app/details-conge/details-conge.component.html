@@ -1,0 +1,28 @@
+<div class="container mt-4">
+  <div *ngIf="conge" class="card">
+    <div class="card-header">
+      <h2 class="card-title">Détails du Congé</h2>
+    </div>
+    <div class="card-body">
+      <p><strong>ID:</strong> {{ conge.congeId }}</p>
+      <p><strong>Date Début:</strong> {{ conge.dateDebut | date }}</p>
+      <p><strong>Date Fin:</strong> {{ conge.dateFin | date }}</p>
+      <p><strong>Status:</strong> {{ conge.status }}</p>
+    </div>
+  </div>
+
+  <div *ngIf="user" class="card mt-4">
+    <div class="card-header">
+      <h3 class="card-title">Informations de l'utilisateur</h3>
+    </div>
+    <div class="card-body">
+      <p><strong>Nom d'utilisateur:</strong> {{ user.username }}</p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <button class="btn btn-success mr-2" (click)="approveConge(conge.congeId)">Approuver</button>
+    <button class="btn btn-danger" (click)="rejectConge(conge.congeId)">Rejeter</button>
+  </div>
+</div>

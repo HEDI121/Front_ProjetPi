@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 @Injectable({providedIn : 'root'})
 export class AuthInterceptorService implements HttpInterceptor {
 
+  
   constructor(private router: Router) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

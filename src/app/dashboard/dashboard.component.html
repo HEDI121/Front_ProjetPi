@@ -1,0 +1,65 @@
+<div class="container mt-4">
+    <h2 class="mb-4 text-center">Dashboard</h2>
+    <div class="row">
+      <!-- Salaires Card -->
+      <div class="col-md-6 mb-4">
+        <div class="card border-primary" (click)="navigateTo('list-salaire')">
+          <div class="card-header bg-primary text-white">
+            <h5 class="card-title m-0 d-flex align-items-center">
+              <i class="bi bi-currency-dollar me-2"></i> Salaires
+            </h5>
+          </div>
+          <div class="card-body">
+            <p class="card-text d-flex align-items-center">
+              <i class="bi bi-cash-coin me-2"></i> Total Salaires: {{ totalSalaire }}
+            </p>
+            <p class="card-text d-flex align-items-center">
+              <i class="bi bi-bar-chart-line me-2"></i> Moyenne Salaires: {{ averageSalaire }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- Congés Card -->
+      <div class="col-md-6 mb-4">
+        <div class="card border-info" (click)="navigateTo('conge-list')">
+          <div class="card-header bg-info text-white">
+            <h5 class="card-title m-0 d-flex align-items-center">
+              <i class="bi bi-calendar-check me-2"></i> Congés
+            </h5>
+          </div>
+          <div class="card-body">
+            <p class="card-text d-flex align-items-center">
+              <i class="bi bi-list-task me-2"></i> Total Congés: {{ totalConges }}
+            </p>
+            <p class="card-text d-flex align-items-center">
+              <i class="bi bi-check-circle me-2"></i> Congés Approuvés: {{ approvedConges }}
+            </p>
+            <p class="card-text d-flex align-items-center">
+              <i class="bi bi-x-circle me-2"></i> Congés Rejetés: {{ rejectedConges }}
+            </p>
+            <p class="card-text d-flex align-items-center">
+                <i class="bi bi-x-circle me-2"></i> Congés en attent : {{ panConges }}
+              </p>
+          </div>
+        </div>
+      </div>
+      <!-- Utilisateurs Card -->
+      <div class="col-md-12 mt-4">
+        <div class="card border-success">
+          <div class="card-header bg-success text-white">
+            <h5 class="card-title m-0 d-flex align-items-center">
+              <i class="bi bi-person me-2"></i> Utilisateurs
+            </h5>
+          </div>
+          <div class="card-body">
+            <ul class="list-group">
+              <li class="list-group-item" *ngFor="let user of users">
+                {{ user.username }} - {{ user.firstName }} {{ user.lastName }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

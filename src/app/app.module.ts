@@ -20,7 +20,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { EmailVerificationComponent } from './email-verification/email-verification.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component'; 
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { AddCongeComponent } from './add-conge/add-conge.component';
+import { AddSalaireComponent } from './add-salaire/add-salaire.component';
+import { ListSalaireComponent } from './list-salaire/list-salaire.component';
+import { CongeListComponent } from './conge-list/conge-list.component';
+import { SalaireDetailsComponent } from './salaire-details/salaire-details.component';
+import { DemandeCongeComponent } from './demande-conge/demande-conge.component';
+import { DetailsCongeComponent } from './details-conge/details-conge.component';
+import { DashboardComponent } from './dashboard/dashboard.component'; 
 
 
 @NgModule({
@@ -30,7 +38,15 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     AuthLayoutComponent,
     EmailVerificationComponent,
     ForgotPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    AddCongeComponent,
+    AddSalaireComponent,
+    ListSalaireComponent,
+    CongeListComponent,
+    SalaireDetailsComponent,
+    DemandeCongeComponent,
+    DetailsCongeComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserAnimationsModule,

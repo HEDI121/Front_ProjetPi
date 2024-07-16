@@ -1,0 +1,34 @@
+<div class="container">
+  <h2>Liste des Congés</h2>
+
+  <!-- Champ de recherche -->
+  <div class="form-group">
+    <label for="searchTerm">Recherche:</label>
+    <input type="text" class="form-control" id="searchTerm" [(ngModel)]="searchTerm" placeholder="Entrez un terme de recherche">
+  </div>
+
+  <!-- Tableau des congés -->
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID Congé</th>
+        <th>Date Début</th>
+        <th>Date Fin</th>
+        <th>Statut</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let conge of filteredConges">
+        <td>{{ conge.congeId }}</td>
+        <td>{{ conge.dateDebut | date }}</td>
+        <td>{{ conge.dateFin | date }}</td>
+        <td>{{ conge.status }}</td>
+        <td>
+          <button class="btn btn-danger" (click)="deleteConge(conge.congeId)">Supprimer</button>
+          <a [routerLink]="['/conge', conge.congeId]" class="btn btn-primary">Détails</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

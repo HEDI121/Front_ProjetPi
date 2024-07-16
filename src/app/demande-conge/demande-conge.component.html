@@ -1,0 +1,35 @@
+<div class="container mt-5">
+  <h2 class="mb-4">Demande de Congé</h2>
+  <form [formGroup]="congeForm" (ngSubmit)="onSubmit()">
+    <div class="form-group mb-3">
+      <label for="username" class="form-label">Nom d'utilisateur</label>
+      <input type="text" class="form-control" id="username" formControlName="username" placeholder="Nom d'utilisateur" required>
+      <div *ngIf="congeForm.get('username').invalid && congeForm.get('username').touched" class="text-danger">
+        Nom d'utilisateur est requis.
+      </div>
+    </div>
+    <div class="form-group mb-3">
+      <label for="dateDebut" class="form-label">Date Début</label>
+      <input type="date" class="form-control" id="dateDebut" formControlName="dateDebut" required>
+      <div *ngIf="congeForm.get('dateDebut').invalid && congeForm.get('dateDebut').touched" class="text-danger">
+        Date de début est requise.
+      </div>
+    </div>
+    <div class="form-group mb-3">
+      <label for="dateFin" class="form-label">Date Fin</label>
+      <input type="date" class="form-control" id="dateFin" formControlName="dateFin" required>
+      <div *ngIf="congeForm.get('dateFin').invalid && congeForm.get('dateFin').touched" class="text-danger">
+        Date de fin est requise.
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="congeForm.invalid">Soumettre</button>
+  </form>
+
+  <!-- Affichage des détails de l'utilisateur et du congé -->
+  <div *ngIf="user" class="mt-4">
+    <h3 class="mb-3">Détails de l'Utilisateur</h3>
+    <p><strong>ID Utilisateur:</strong> {{ user.userId }}</p>
+    <p><strong>Nom d'Utilisateur:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+  </div>
+</div>

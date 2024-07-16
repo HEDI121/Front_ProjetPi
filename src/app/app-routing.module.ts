@@ -9,6 +9,14 @@ import { PresentationComponent } from "./pages/presentation/presentation.compone
 import { EmailVerificationComponent } from "./email-verification/email-verification.component";
 import { ForgotPasswordComponent } from "./forgot-password/forgot-password.component";
 import { ResetPasswordComponent } from "./reset-password/reset-password.component";
+import { AddCongeComponent } from "./add-conge/add-conge.component";
+import { AddSalaireComponent } from "./add-salaire/add-salaire.component";
+import { ListSalaireComponent } from "./list-salaire/list-salaire.component";
+import { CongeListComponent } from "./conge-list/conge-list.component";
+import { SalaireDetailsComponent } from "./salaire-details/salaire-details.component";
+import { DemandeCongeComponent } from "./demande-conge/demande-conge.component";
+import { DetailsCongeComponent } from "./details-conge/details-conge.component";
+import { DashboardComponent } from "./dashboard/dashboard.component";
 
 const routes: Routes = [
   { path: 'verify', component: EmailVerificationComponent },
@@ -17,9 +25,16 @@ const routes: Routes = [
   
   {
     path: "",
-    redirectTo: "presentation",
+    redirectTo: "/presentation",
     pathMatch: "full"
   },
+  { path: 'add-salaire', component: AddSalaireComponent },
+  {path: 'list-salaire', component: ListSalaireComponent},
+  { path:'conge-list', component:CongeListComponent},
+  { path: 'salaire/details/:id', component: SalaireDetailsComponent },
+  {path:'demande-conge',component: DemandeCongeComponent},
+  { path: 'conge/:id', component: DetailsCongeComponent}, 
+  {path: 'dashbord',component: DashboardComponent},
   {
     path: "presentation",
     component: PresentationComponent

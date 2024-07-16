@@ -1,0 +1,29 @@
+<div class="container">
+  <h2>Liste des Salaires</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Montant</th>
+        <th>Date de Paiement</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let salaire of salaires">
+        <td>{{ salaire.salaire_id }}</td>
+        <td>{{ salaire.montant }}</td>
+        <td>{{ salaire.date_paiement | date: 'dd/MM/yyyy' }}</td>
+        <td>
+          <!-- Ajouter un lien vers les détails du salaire -->
+          <a [routerLink]="['/salaire/details', salaire.salaireId]">Voir Détails
+            
+          </a>
+          <button class="btn btn-danger" (click)="deleteSalaire(salaire.Salaire_id)">
+            Supprimer
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

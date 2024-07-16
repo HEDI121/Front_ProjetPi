@@ -1,9 +1,11 @@
 import { Conge } from './conge';
+import { Salaire } from './salaire';
 
 export interface User {
-  userId?: number;
+  userId: number;
   username: string;
   password: string;
   email: string;
-  conge?: Conge[]; // Liste des congés associés
+  conge?: Conge[];
+  salaire?: Salaire[];
 }

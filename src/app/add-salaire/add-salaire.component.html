@@ -1,0 +1,27 @@
+<div class="container mt-5">
+  <h2 class="mb-4">Ajouter un Salaire</h2>
+  <form [formGroup]="salaireForm" (ngSubmit)="onSubmit()">
+    <div class="form-group mb-3">
+      <label for="username" class="form-label">Nom d'utilisateur</label>
+      <input id="username" formControlName="username" class="form-control" type="text" />
+      <div *ngIf="salaireForm.controls['username'].invalid && (salaireForm.controls['username'].dirty || salaireForm.controls['username'].touched)" class="text-danger">
+        Le nom d'utilisateur est requis.
+      </div>
+    </div>
+    <div class="form-group mb-3">
+      <label for="montant" class="form-label">Montant</label>
+      <input id="montant" formControlName="montant" class="form-control" type="number" />
+      <div *ngIf="salaireForm.controls['montant'].invalid && (salaireForm.controls['montant'].dirty || salaireForm.controls['montant'].touched)" class="text-danger">
+        Le montant est requis et doit être un nombre valide.
+      </div>
+    </div>
+    <div class="form-group mb-3">
+      <label for="datePaiement" class="form-label">Date de Paiement</label>
+      <input id="date_paiement" formControlName="date_paiement" class="form-control" type="date" />
+      <div *ngIf="salaireForm.controls['date_paiement'].invalid && (salaireForm.controls['date_paiement'].dirty || salaireForm.controls['date_paiement'].touched)" class="text-danger">
+        La date de paiement est requise.
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="salaireForm.invalid">Ajouter</button>
+  </form>
+</div>

@@ -1,0 +1,10 @@
+<div class="container">
+  <h2>Détails du Salaire</h2>
+  <div *ngIf="salaire">
+    <p><strong>ID:</strong> {{ salaire.Salaire_id }}</p>
+    <p><strong>Montant:</strong> {{ salaire.montant }}</p>
+    <p><strong>Date de Paiement:</strong> {{ salaire.date_paiement | date }}</p>
+    <p><strong>Utilisateur:</strong> {{ salaire.user?.username }}</p>
+  </div>
+  
+</div>
